@@ -1,1 +1,9 @@
 
+
+#sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout site.key -out site.crt -config my-site.conf -passin pass:Test001*
+#sudo openssl pkcs12 -export -out site.pfx -inkey site.key -in site.crt
+
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout site.key -out site.crt
+sudo openssl dhparam -out site.pem 2048
+
