@@ -1,11 +1,24 @@
-version : “3”
+version : "3"
 services :
   nginx:
-    image: nginx:1.17.8
+    restart: always
+    hostname: nginx
+    image: nginx:latest
     container_name: nginx_container
     ports:
+      - 443:443
       - 80:80
     volumes:
       - ./www/data:/nginx/www/data
-      - ./nginx/default.conf:/etc/nginx/default.conf
-    network_mode: host
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl/site.crt:/etc/nginx/ssl/certs/site.crt
+      - ./nginx/ssl/site.key:/etc/nginx/ssl/private/site.dec.key
+
+  sample_app_go:
+    restart: always
+    hostname: example-app
+    image: example-app:0.1.1
+    container_name: example_app_container
+    ports:
+      - 8080:8080
+
